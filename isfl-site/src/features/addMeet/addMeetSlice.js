@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    "boysFoil": [],
-    "girlsFoil": [],
-    "boysEpee": [],
-    "girlsEpee": [],
-    "boysSaber": [],
-    "girlsSaber": []
+    "Boys Foil": [],
+    "Girls Foil": [],
+    "Boys Epee": [],
+    "Girls Epee": [],
+    "Boys Saber": [],
+    "Girls Saber": []
 }
 
 const addMeetSlice = createSlice({
