@@ -70,6 +70,21 @@ export const AddMeet = () => {
                     <p>{threeSquads() ? "Click to add meet" : "Add more squads"}</p>
                 </div>
             </div>
+            { weapon !== "None" &&
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <SquadResults squadName={"Boys " + weapon}/>
+                    <div style={{width: "10%"}}></div>
+                    <SquadResults squadName={"Girls " + weapon}/>
+                </div>
+            }
+            {weapon === "None" &&
+                <>
+                    <h4>Squads added:</h4>
+                    {squadsAdded().map(squadName => <p>{squadName}</p>)}
+                    {squadsAdded().length === 0 && <p>None yet.</p>}
+                    <h5>Click a weapon at the top to add more squads.</h5>
+                </>
+            }
         </div>
     )
 
