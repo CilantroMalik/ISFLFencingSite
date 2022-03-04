@@ -24,4 +24,33 @@ export const AddMeet = () => {
         return fullSquads >= 3
     }
 
+    const squadsAdded = () => {
+        let squads = []
+        console.log(Object.keys(addedMeet))
+        for (let squadName of Object.keys(addedMeet)) {
+            console.log(addedMeet[squadName])
+            if (addedMeet[squadName].length !== 0) {
+                squads.push(squadName)
+            }
+        }
+        return squads
+    }
+
+    const isFilled = (squadName) => {
+        console.log("Squad Name: " + squadName)
+        console.log(addedMeet[squadName])
+        console.log(addedMeet[squadName].length !== 0)
+        return (addedMeet[squadName].length !== 0 ? "green" : "#f1f7ed")
+    }
+
+    const finish = () => {
+        // make API call with addedMeet state
+        navigate("/")
+    }
+
+    return (
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        </div>
+    )
+
 }
