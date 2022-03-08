@@ -46,6 +46,20 @@ export const MeetDetail = () => {
                     <button onClick={exit} style={{marginBottom: "1rem"}}>Exit</button>
                 </div>
             </div>
+            { weapon !== "None" &&
+            <div style={{display: "flex", justifyContent: "center", width: "95%"}}>
+                <SquadDetail squadName={"Boys " + weapon} squadData={meetData.squadData["Boys " + weapon]}/>
+                <div style={{width: "10%"}}></div>
+                <SquadDetail squadName={"Girls " + weapon} squadData={meetData.squadData["Girls " + weapon]}/>
+            </div>
+            }
+            {weapon === "None" &&
+            <>
+                <h4>Overall Meet Results:</h4>
+                {/* TODO */}
+                <h5>Click a weapon at the top to view squad-specific breakdown.</h5>
+            </>
+            }
         </div>
     )
 
