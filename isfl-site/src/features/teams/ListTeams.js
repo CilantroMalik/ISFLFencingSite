@@ -29,4 +29,32 @@ export const ListTeams = () => {
         return squadTeams
     }
 
+    return (
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <Header />
+            <h1>Team List</h1>
+            <h3>Choose a weapon to view teams:</h3>
+            <div style={{display: "flex", justifyContent: "center"}}>
+                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : "muted-button"}>Foil</button>
+                </div>
+                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <button onClick={() => toggleWeapon("Epee")} className={weapon === "Epee" ? "button" : "muted-button"} style={{marginLeft: "3rem", marginRight: "3rem", marginBottom: "1rem"}}>Epee</button>
+                </div>
+                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Saber")} className={weapon === "Saber" ? "button" : "muted-button"}>Saber</button>
+                </div>
+                <div style={{width: "2px", height: "5rem", marginLeft: "2rem", marginRight: "2rem", backgroundColor: "#f1f7ed", border: "1px solid #f1f7ed", borderRadius: "1px"}}> </div>
+                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
+                    <button style={{marginBottom: "1rem"}} onClick={() => setGender("Boys")} className={gender === "Boys" ? "button" : "muted-button"}>Boys</button>
+                </div>
+                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
+                    <button style={{marginBottom: "1rem", marginLeft: "3rem"}} onClick={() => setGender("Girls")} className={gender === "Girls" ? "button" : "muted-button"}>Girls</button>
+                </div>
+            </div>
+            {weapon === "None" &&
+            <><h5>Select a weapon above to view teams.</h5></>
+            }
+        </div>
+    )
 }
