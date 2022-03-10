@@ -8,6 +8,9 @@ export const MeetDetail = () => {
     const navigate = useNavigate()
 
     const meetData = {
+        homeTeam: "RCDS",
+        awayTeam: "Hackley",
+        date: "02-26-2022",
         squads: ["Boys Foil", "Girls Foil"],
         squadData: {
             "Boys Foil": [{fencer1: "Placeholder 1", fencer2: "Placeholder 2", score1: 5, score2: 3}],
@@ -57,7 +60,8 @@ export const MeetDetail = () => {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <h2>Choose a weapon to view results:</h2>
+            <h1>{meetData.homeTeam} (Home) vs {meetData.awayTeam} (Away): {meetData.date}</h1>
+            <h3>Choose a weapon to view results:</h3>
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                     <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : "muted-button"}>Foil</button>
@@ -83,7 +87,9 @@ export const MeetDetail = () => {
             {weapon === "None" &&
             <>
                 <h4>Overall Meet Results:</h4>
-                {/* TODO */}
+                <hr style={{width: "50%"}}/>
+                {overallMeetResults()}
+                <hr style={{width: "50%"}}/>
                 <h5>Click a weapon at the top to view squad-specific breakdown.</h5>
             </>
             }
