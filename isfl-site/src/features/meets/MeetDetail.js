@@ -28,6 +28,33 @@ export const MeetDetail = () => {
         navigate("/")
     }
 
+    const overallMeetResults = () => {
+        let homeSquadsWon = []
+        let awaySquadsWon = []
+        for (const squad of Object.keys(meetData.squadData)) {
+            let homeBoutWins = 0
+            let awayBoutWins = 0
+            for (const bout of meetData.squadData[squad]) {
+                if (bout.score1 > bout.score2) {
+                    homeBoutWins += 1
+                } else {
+                    awayBoutWins += 1
+                }
+            }
+            if (homeBoutWins > awayBoutWins) {
+                homeSquadsWon.push(squad)
+            } else {
+                awaySquadsWon.push(squad)
+            }
+        }
+        return (
+            <div>
+                <h5><strong>Home Team Squads Won:</strong> {homeSquadsWon.join(", ")}</h5>
+                <h5><strong>Away Team Squads Won:</strong> {awaySquadsWon.join(", ")}</h5>
+            </div>
+        )
+    }
+
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h2>Choose a weapon to view results:</h2>
