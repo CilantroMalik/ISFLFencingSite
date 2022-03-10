@@ -13,7 +13,7 @@ export const Home = () => {
             <br/>
             <p style={{margin: "2rem"}}>ISFL Fencing is an online database for reporting fencing league results. Once results are received, ISFL Fencing generates detailed statistics for teams and individual fencers. It is a replacement for the earlier BoutShout software that stopped operating a couple years ago.</p>
             <p style={{margin: "2rem"}}>ISFL Fencing is currently in beta testing, and is available only for the Independent Schools Fencing League.</p>
-            <p style={{margin: "2rem"}}>Inquiries / Questions: snadol@students.hackleyschool.org.</p>
+            <p style={{margin: "2rem"}}>Inquiries / Questions: snadol@students.hackleyschool.org and/or rohan_malik@ryecountryday.org.</p>
         </div>
     )
 }
