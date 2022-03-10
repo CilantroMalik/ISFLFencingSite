@@ -55,6 +55,44 @@ export const ListTeams = () => {
             {weapon === "None" &&
             <><h5>Select a weapon above to view teams.</h5></>
             }
+            {weapon !== "None" &&
+            <>
+                <h2>Teams: {gender + " " + weapon}</h2>
+                <hr style={{width: "98%"}}/>
+                <table style={{width: "75%"}}>
+                    <tr>
+                        <th style={{textAlign: "center"}}>Team</th>
+                        <th style={{textAlign: "center"}}>Total Meets</th>
+                        <th style={{textAlign: "center"}}>Wins</th>
+                        <th style={{textAlign: "center"}}>Losses</th>
+                        <th style={{textAlign: "center"}}>Win %</th>
+                        <th style={{textAlign: "center"}}>Bouts Won</th>
+                        <th style={{textAlign: "center"}}>Bouts Lost</th>
+                        <th style={{textAlign: "center"}}>Bout Win Indicator</th>
+                        <th style={{textAlign: "center"}}>Touches Scored</th>
+                        <th style={{textAlign: "center"}}>Touches Received</th>
+                        <th style={{textAlign: "center"}}>Touch Indicator</th>
+                    </tr>
+                {teamsForSquad(gender + " " + weapon).map(team => (
+                    //<tr onClick={() => navigate("/teamDetail", {state: {id: meet.id}})}>
+                    <tr>
+                        <td style={{textAlign: "center"}}>{team.schoolName}</td>
+                        <td style={{textAlign: "center"}}>{team.wins + team.losses}</td>
+                        <td style={{textAlign: "center"}}>{team.wins}</td>
+                        <td style={{textAlign: "center"}}>{team.losses}</td>
+                        <td style={{textAlign: "center"}}>{Math.round(100 * team.wins / (team.wins + team.losses))}%</td>
+                        <td style={{textAlign: "center"}}>{team.boutsWon}</td>
+                        <td style={{textAlign: "center"}}>{team.boutsLost}</td>
+                        <td style={{textAlign: "center"}}>{team.boutsWon - team.boutsLost}</td>
+                        <td style={{textAlign: "center"}}>{team.touchesWon}</td>
+                        <td style={{textAlign: "center"}}>{team.touchesLost}</td>
+                        <td style={{textAlign: "center"}}>{team.touchesWon - team.touchesLost}</td>
+
+                    </tr>
+                ))}
+                </table>
+            </>
+            }
         </div>
     )
 }
