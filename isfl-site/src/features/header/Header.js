@@ -8,10 +8,13 @@ export const Header = () => {
     let navigate = useNavigate()
     let dispatch = useDispatch()
 
+    const [hover, setHover] = useState(false)
+
 
     return (
         <div style={{width: "100vw", height: "6vh", display: "flex", backgroundColor: "#474741", alignItems: "center"}}>
-            <h1 style={{marginLeft: "2rem"}}>ISFL Fencing</h1>
+            <h1 style={hover ? {marginLeft: "2rem", padding: "0.5rem", background: "#2D2D2D", borderRadius: "5px", transition: "background 0.5s"} : {marginLeft: "2rem", padding: "0.5rem", transition: "background 0.5s"}}
+                onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => navigate('/')}>ISFL Fencing</h1>
             <h5 style={{marginLeft: "auto"}}>Season: </h5>
             <select style={{width: "7vw", marginLeft: "1rem"}} className="muted-button" name="season" id="season" onChange={(e) => dispatch(setSeason(e.target.value))}>
                 <option value="2021-2022">2021-2022</option>

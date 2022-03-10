@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { SquadResults } from "./SquadResults";
+import { Header } from "../header/Header";
 
 export const AddMeet = () => {
 
@@ -50,6 +51,7 @@ export const AddMeet = () => {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <Header />
             <h2>Choose a weapon or finish adding meet:</h2>
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>

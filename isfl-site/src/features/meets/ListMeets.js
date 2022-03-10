@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from "react-router";
+import { Header } from "../header/Header";
 
 export const ListMeets = () => {
     const meets = [{id: "0000000000", date: "02-26-2022", homeTeam: "RCDS", awayTeam: "Hackley", homeScore: "0", awayScore: "9"}]
@@ -12,6 +13,7 @@ export const ListMeets = () => {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <Header />
             <h1>Meets</h1>
             <hr style={{width: "98%"}}/>
             <table style={{width: "60%"}}>
