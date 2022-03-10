@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ISFLFencingSite/static/css/main.e4530573.css",
-    "main.js": "/ISFLFencingSite/static/js/main.e84d1bac.js",
+    "main.js": "/ISFLFencingSite/static/js/main.dd82f4ae.js",
     "index.html": "/ISFLFencingSite/index.html",
     "main.e4530573.css.map": "/ISFLFencingSite/static/css/main.e4530573.css.map",
-    "main.e84d1bac.js.map": "/ISFLFencingSite/static/js/main.e84d1bac.js.map"
+    "main.dd82f4ae.js.map": "/ISFLFencingSite/static/js/main.dd82f4ae.js.map"
   },
   "entrypoints": [
     "static/css/main.e4530573.css",
-    "static/js/main.e84d1bac.js"
+    "static/js/main.dd82f4ae.js"
   ]
 }
