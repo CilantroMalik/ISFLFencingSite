@@ -9,7 +9,7 @@ import { ListTeams } from "./features/teams/ListTeams";
 function Router() {
     return (
         <Routes>
-            <Route path="/" element={<Home />}/>
+            <Route exact path="/" element={<Home />}/>
             <Route path="/addMeet" element={<AddMeet />}/>
             <Route path="/meets" element={<ListMeets />}/>
             <Route path="/meetDetail" element={<MeetDetail />}/>
