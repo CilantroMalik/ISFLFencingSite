@@ -56,15 +56,15 @@ export const AddMeet = () => {
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                     <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : "muted-button"}>Foil</button>
-                    <p><span style={{color: isFilled("Boys Foil")}}>Boys</span> / <span style={{color: isFilled("Girls Foil") ? "olivegreen" : "#f1f7ed"}}>Girls</span></p>
+                    <p><span style={{color: isFilled("Boys Foil")}}>Boys</span> / <span style={{color: isFilled("Girls Foil")}}>Girls</span></p>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                     <button onClick={() => toggleWeapon("Epee")} className={weapon === "Epee" ? "button" : "muted-button"} style={{marginLeft: "3rem", marginRight: "3rem", marginBottom: "1rem"}}>Epee</button>
-                    <p><span style={{color: isFilled("Boys Epee")}}>Boys</span> / <span style={{color: isFilled("Girls Epee") ? "olivegreen" : "#f1f7ed"}}>Girls</span></p>
+                    <p><span style={{color: isFilled("Boys Epee")}}>Boys</span> / <span style={{color: isFilled("Girls Epee")}}>Girls</span></p>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                     <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Saber")} className={weapon === "Saber" ? "button" : "muted-button"}>Saber</button>
-                    <p><span style={{color: isFilled("Boys Saber")}}>Boys</span> / <span style={{color: isFilled("Girls Saber") ? "olivegreen" : "#f1f7ed"}}>Girls</span></p>
+                    <p><span style={{color: isFilled("Boys Saber")}}>Boys</span> / <span style={{color: isFilled("Girls Saber")}}>Girls</span></p>
                 </div>
                 <div style={{width: "2px", height: "5rem", marginLeft: "2rem", marginRight: "2rem", backgroundColor: "#f1f7ed", border: "1px solid #f1f7ed", borderRadius: "1px"}}> </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >

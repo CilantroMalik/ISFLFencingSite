@@ -60,7 +60,7 @@ export const ListTeams = () => {
                 <h2>Teams: {gender + " " + weapon}</h2>
                 <hr style={{width: "98%"}}/>
                 <table style={{width: "75%"}}>
-                    <tr>
+                    <tr style={{fontSize: "1.4rem"}}>
                         <th style={{textAlign: "center"}}>Team</th>
                         <th style={{textAlign: "center"}}>Total Meets</th>
                         <th style={{textAlign: "center"}}>Wins</th>
@@ -75,8 +75,8 @@ export const ListTeams = () => {
                     </tr>
                 {teamsForSquad(gender + " " + weapon).map(team => (
                     //<tr onClick={() => navigate("/teamDetail", {state: {id: meet.id}})}>
-                    <tr>
-                        <td style={{textAlign: "center"}}>{team.schoolName}</td>
+                    <tr style={{fontSize: "1.2rem"}}>
+                        <td style={{textAlign: "center"}}><strong>{team.schoolName}</strong></td>
                         <td style={{textAlign: "center"}}>{team.wins + team.losses}</td>
                         <td style={{textAlign: "center"}}>{team.wins}</td>
                         <td style={{textAlign: "center"}}>{team.losses}</td>

@@ -12,7 +12,7 @@ export const Header = () => {
 
 
     return (
-        <div style={{width: "100vw", height: "6vh", display: "flex", backgroundColor: "#474741", alignItems: "center"}}>
+        <div style={{width: "100vw", height: "5rem", display: "flex", backgroundColor: "#474741", alignItems: "center"}}>
             <h1 style={hover ? {marginLeft: "2rem", padding: "0.5rem", background: "#2D2D2D", borderRadius: "5px", transition: "background 0.5s"} : {marginLeft: "2rem", padding: "0.5rem", transition: "background 0.5s"}}
                 onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => navigate('/')}>ISFL Fencing</h1>
             <h5 style={{marginLeft: "auto"}}>Season: </h5>
