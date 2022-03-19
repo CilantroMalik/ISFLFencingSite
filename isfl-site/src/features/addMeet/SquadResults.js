@@ -1,9 +1,9 @@
-import React from 'react';
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { addAllBoutsToSquad } from "./addMeetSlice";
 
 export const SquadResults = (props) => {
-
+    const addingMeet = useSelector(state => state.addMeet)
     const dispatch = useDispatch()
 
     let fencers1 = ["", "", "", "", "", "", "", "", ""]
@@ -24,7 +24,7 @@ export const SquadResults = (props) => {
     }
 
     return (
-        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center", opacity: addingMeet[props.squadName].length !== 0 ? "0.5" : "1"}}>
             <h3 style={{color: "#f1f7ed"}}>{props.squadName}</h3>
             <hr style={{width: "90%"}}/>
             {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => (
@@ -63,7 +63,7 @@ export const SquadResults = (props) => {
             ))}
             <br/>
             <br/>
-            <button onClick={handleSubmit}>Save</button>
+            <button style={addingMeet[props.squadName].length !== 0 ? {marginBottom: "2rem", backgroundColor: "green", borderColor: "green"} : {marginBottom: "2rem"}} onClick={handleSubmit}>Save</button>
         </div>
     )
 }

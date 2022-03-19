@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router";
-import { SquadDetail } from "../meets/SquadDetail";
+import { SquadDetail } from "./SquadDetail";
 
 export const MeetDetail = () => {
     const location = useLocation()
@@ -51,16 +51,22 @@ export const MeetDetail = () => {
             }
         }
         return (
-            <div>
-                <h5><strong>Home Team Squads Won:</strong> {homeSquadsWon.join(", ")}</h5>
-                <h5><strong>Away Team Squads Won:</strong> {awaySquadsWon.join(", ")}</h5>
+            <div style={{textAlign: "center"}}>
+                <h5><strong>Home Team Squads Won:</strong> {homeSquadsWon.length === 0 ? "None" : homeSquadsWon.join(", ")}</h5>
+                <h5><strong>Away Team Squads Won:</strong> {awaySquadsWon.length === 0 ? "None" : awaySquadsWon.join(", ")}</h5>
+                <br/>
+                {homeSquadsWon.length !== awaySquadsWon.length && <h5><strong>Meet Winner:</strong> {homeSquadsWon.length > awaySquadsWon.length ? meetData.homeTeam : meetData.awayTeam}</h5>}
+                {homeSquadsWon.length === awaySquadsWon.length && <h5><strong>Meet Winner:</strong> Tie</h5>}
             </div>
         )
     }
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <h1>{meetData.homeTeam} (Home) vs {meetData.awayTeam} (Away): {meetData.date}</h1>
+            <div style={{display: "flex", flexDirection: "column"}}>
+                <h1>{meetData.homeTeam} (Home) vs {meetData.awayTeam} (Away): {meetData.date}</h1>
+                <hr style={{width: "100%", transform: "translate(0px, -20px)"}}/>
+            </div>
             <h3>Choose a weapon to view results:</h3>
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
