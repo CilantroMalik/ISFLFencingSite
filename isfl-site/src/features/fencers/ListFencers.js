@@ -51,8 +51,22 @@ export const ListFencers = () => {
                         <th style={{textAlign: "center"}}>Touches Received</th>
                         <th style={{textAlign: "center"}}>Touch Indicator</th>
                     </tr>
+                    {fencersSearch().map(fencer => (
+                        <tr style={{fontSize: "1.2rem"}}>
+                            <td style={{textAlign: "center"}}>{fencer.name}</td>
+                            <td style={{textAlign: "center"}}>{fencer.school}</td>
+                            <td style={{textAlign: "center"}}>{Math.round(100*fencer.boutsWon / (fencer.boutsWon + fencer.boutsLost))}%</td>
+                            <td style={{textAlign: "center"}}>{fencer.boutsWon}</td>
+                            <td style={{textAlign: "center"}}>{fencer.boutsLost}</td>
+                            <td style={{textAlign: "center"}}>{fencer.boutsWon - fencer.boutsLost}</td>
+                            <td style={{textAlign: "center"}}>{fencer.touchesWon}</td>
+                            <td style={{textAlign: "center"}}>{fencer.touchesLost}</td>
+                            <td style={{textAlign: "center"}}>{fencer.touchesWon - fencer.touchesLost}</td>
+                        </tr>
+                    ))}
                 </table>
             }
+            {fencersSearch().length === 0 && <h5>No fencers match your search criteria — maybe you made a typo?</h5> }
         </div>
     )
 }
