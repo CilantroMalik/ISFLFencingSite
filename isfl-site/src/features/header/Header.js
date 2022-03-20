@@ -21,8 +21,9 @@ export const Header = () => {
                 <option value="2022-2023">2022-2023</option>
             </select>
             <div style={{width: "2px", height: "85%", marginLeft: "2rem", backgroundColor: "#f1f7ed", border: "1px solid #f1f7ed", borderRadius: "1px"}}> </div>
-            <button style={{marginLeft: "2rem"}} onClick={() => navigate('/meets')}>Meets</button>
+            <button style={{marginLeft: "2rem"}} onClick={() => navigate('/fencers')}>Fencers</button>
             <button style={{marginLeft: "2rem"}} onClick={() => navigate('/teams')}>Teams</button>
+            <button style={{marginLeft: "2rem"}} onClick={() => navigate('/meets')}>Meets</button>
             <button style={{marginLeft: "2rem", marginRight: "2rem"}} onClick={() => navigate('/addMeet')}>Add Meet</button>
         </div>
     )
