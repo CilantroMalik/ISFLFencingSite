@@ -15,6 +15,7 @@ export const ListMeets = () => {
     const [meets, setMeets] = useState([])
 
     const navigate = useNavigate()
+    const season = useSelector(state => state.season.currentSeason)
 
     useEffect(() => {
         // fetch meet data from API
@@ -34,14 +35,24 @@ export const ListMeets = () => {
                     <th>Date</th>
                     <th>Home Team</th>
                     <th>Away Team</th>
-                    <th>Score</th>
+                    <th>Boys' Foil</th>
+                    <th>Girls' Foil</th>
+                    <th>Boys' Epee</th>
+                    <th>Girls' Epee</th>
+                    <th>Boys' Saber</th>
+                    <th>Girls' Saber</th>
                 </tr>
                 {meets.map(meet => (
-                    <tr style={{fontSize: "1.5rem"}} onClick={() => navigate("/meetDetail", {state: {id: meet.id}})}>
+                    <tr key={nanoid()} style={{fontSize: "1.3rem"}} onClick={() => navigate("/meetDetail", {state: {id: meet.id}})}>
                         <td>{meet.date}</td>
-                        <td>{meet.homeTeam}</td>
-                        <td>{meet.awayTeam}</td>
-                        <td>{meet.homeScore + "–" + meet.awayScore}</td>
+                        <td>{meet.hteam}</td>
+                        <td>{meet.ateam}</td>
+                        <td>{hasType(meet, "boys", "foil") ? findType(meet, "boys", "foil") : "No results"}</td>
+                        <td>{hasType(meet, "girls", "foil") ? findType(meet, "girls", "foil") : "No results"}</td>
+                        <td>{hasType(meet, "boys", "epee") ? findType(meet, "boys", "epee") : "No results"}</td>
+                        <td>{hasType(meet, "girls", "epee") ? findType(meet, "girls", "epee") : "No results"}</td>
+                        <td>{hasType(meet, "boys", "saber") ? findType(meet, "boys", "saber") : "No results"}</td>
+                        <td>{hasType(meet, "girls", "saber") ? findType(meet, "girls", "saber") : "No results"}</td>
                     </tr>
                 ))}
             </table>
