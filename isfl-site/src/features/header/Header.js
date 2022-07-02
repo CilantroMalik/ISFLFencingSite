@@ -17,8 +17,9 @@ export const Header = () => {
                 onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => navigate('/')}>ISFL Fencing</h1>
             <h5 style={{marginLeft: "auto"}}>Season: </h5>
             <select style={{width: "7vw", marginLeft: "1rem"}} className="muted-button" name="season" id="season" onChange={(e) => dispatch(setSeason(e.target.value))}>
-                <option value="2021-2022">2021-2022</option>
-                <option value="2022-2023">2022-2023</option>
+                <option value="2122">2021-2022</option>
+                <option value="2223">2022-2023</option>
+                <option value="test">Test</option>
             </select>
             <div style={{width: "2px", height: "85%", marginLeft: "2rem", backgroundColor: "#f1f7ed", border: "1px solid #f1f7ed", borderRadius: "1px"}}> </div>
             <button style={{marginLeft: "2rem"}} onClick={() => navigate('/fencers')}>Fencers</button>

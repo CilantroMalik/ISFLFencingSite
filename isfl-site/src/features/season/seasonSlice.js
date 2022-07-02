@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {currentSeason: "2021-2022"}
+const initialState = {currentSeason: "2122"}
 
 const seasonSlice = createSlice({
     name: "season",

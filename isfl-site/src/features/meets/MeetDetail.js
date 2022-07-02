@@ -28,7 +28,7 @@ export const MeetDetail = () => {
     }
 
     const exit = () => {
-        navigate("/")
+        navigate("/meets")
     }
 
     const overallMeetResults = () => {
