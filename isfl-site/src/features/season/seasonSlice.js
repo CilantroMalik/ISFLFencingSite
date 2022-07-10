@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {currentSeason: "2122"}
+const initialState = {seasonInfo: {currentSeason: "2122", type: "t"}}
 
 const seasonSlice = createSlice({
     name: "season",
     initialState,
     reducers: {
-        setSeason(state, action) { state.currentSeason = action.payload }
+        setSeason(state, action) { state.seasonInfo = action.payload }
     }
 })
 
