@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from "../header/Header";
+import { setTypes } from "../season/typesSlice";
+import {useDispatch} from "react-redux";
 
 export const Home = () => {
+    const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     fetch("https://api.isflfencing.com/seasons.php")
+    //         .then(response => response.json())
+    //         .then(data => dispatch(setTypes(data)))
+    // })
+
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100vw", height: "100vh", backgroundColor: "#2d2d2d", color: "#f1f7ed"}}>
             <Header/>
