@@ -13,6 +13,26 @@
  *
  * The majority of the configuration for the toolkit.
  */
+
+:root {
+  --background: #2d2d2d;
+  --text: #f1f7ed;
+  --meetrow: #3f3f3f;
+}
+
+[data-theme='light'] {
+  --background: #f1f7ed;
+  --text: #2d2d2d;
+  --meetrow: #a6a6a6;
+}
+
+.light {
+  color: #2d2d2d
+}
+.dark {
+
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -377,8 +397,8 @@ html {
 }
 
 body {
-  color: antiquewhite;
-  background: #2D2D2D;
+  color: var(--text);
+  background: var(--background);
   font-size: 1rem;
 }
 
@@ -407,7 +427,7 @@ h5 {
   font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif;
   line-height: 1.2;
-  color: #f1f7ed;
+  color: var(--text);
 }
 
 h1:not(:first-child),
@@ -542,6 +562,7 @@ hr {
   height: 0;
   border: 0;
   border-top: 1px solid #dedede;
+  color: var(--text);
 }
 
 dt {
@@ -841,6 +862,13 @@ a.muted-button {
   color: antiquewhite;
 }
 
+.muted-button-light,
+a.muted-button-light {
+  background: transparent;
+  border: 1px solid #2d2d2d;
+  color: #2d2d2d;
+}
+
 .muted-button:hover, .muted-button:focus, .muted-button:active,
 a.muted-button:hover,
 a.muted-button:focus,
@@ -848,6 +876,12 @@ a.muted-button:active {
   color: antiquewhite;
   border: 1px solid #818181;
   background: transparent;
+}
+
+.muted-button-light:hover {
+  border: 1px solid #888888;
+  background: transparent;
+  color: #2d2d2d
 }
 
 .round-button,
@@ -1021,7 +1055,7 @@ caption {
 }
 
 .meet-row:hover {
-  background-color: #3f3f3f;
+  background-color: var(--meetrow);
   transition: background-color 0.3s ease-out;
 }
 

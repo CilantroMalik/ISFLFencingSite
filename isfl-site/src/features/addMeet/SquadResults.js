@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addAllBoutsToSquad } from "./addMeetSlice";
+import { nanoid } from "@reduxjs/toolkit";
+import { c } from "../../colors"
 
 export const SquadResults = (props) => {
     const addingMeet = useSelector(state => state.addMeet)
+    const theme = useSelector(state => state.theme.theme)
     const dispatch = useDispatch()
 
     let fencers1 = ["", "", "", "", "", "", "", "", ""]
@@ -14,7 +17,7 @@ export const SquadResults = (props) => {
     const handleSubmit = () => {
         let bouts = []
         for (let i = 0; i < 9; i++) {
-            bouts.push({fencer1: fencers1[i], score1: scores1[i], fencer2: fencers2[i], score2: scores2[i]})
+            if (fencers1[i] !== "" && fencers2[i] !== "") { bouts.push({fencer1: fencers1[i], score1: scores1[i], fencer2: fencers2[i], score2: scores2[i]}) }
         }
         dispatch(addAllBoutsToSquad({squadName: props.squadName, bouts: bouts}))
         fencers1 = ["", "", "", "", "", "", "", "", ""]
@@ -25,13 +28,12 @@ export const SquadResults = (props) => {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", opacity: addingMeet[props.squadName].length !== 0 ? "0.5" : "1"}}>
-            <h3 style={{color: "#f1f7ed"}}>{props.squadName}</h3>
-            <hr style={{width: "90%"}}/>
+            <h3 style={{color: c[theme].text, marginBottom: "0.3rem"}}>{props.squadName}</h3>
+            <hr style={{borderColor: c[theme].text, width: "90%", marginBottom: "1rem"}}/>
             {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                <div style={{display: "flex"}}>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: "1.5rem", width: "12%"}}>
-                        <label htmlFor="score1">Score 1</label>
-                        <select name="score1" id="score1" className="muted-button" onChange={(e) => scores1[i] = parseInt(e.target.value)}>
+                <div key={nanoid()} style={{display: "flex"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: "1.5rem", width: "12%",  marginBottom: "1rem"}}>
+                        <select name="score1" id="score1" className="muted-button" style={{color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => scores1[i] = parseInt(e.target.value)}>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -41,16 +43,13 @@ export const SquadResults = (props) => {
                         </select>
                     </div>
                     <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: "1.5rem", width: "35%"}}>
-                        <label htmlFor="fencer1">Fencer 1</label>
-                        <input type="text" id="fencer1" name="fencer1" onChange={(e) => fencers1[i] = e.target.value} style={{color: "#f1f7ed"}}/>
+                        <input type="text" id="fencer1" name="fencer1" placeholder="Home Fencer" onChange={(e) => fencers1[i] = e.target.value} style={{color: c[theme].text, borderColor: c[theme].text}}/>
                     </div>
                     <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "1.5rem", width: "35%"}}>
-                        <label htmlFor="fencer2">Fencer 2</label>
-                        <input type="text" id="fencer2" name="fencer2" onChange={(e) => fencers2[i] = e.target.value} style={{color: "#f1f7ed"}}/>
+                        <input type="text" id="fencer2" name="fencer2" placeholder="Away Fencer" onChange={(e) => fencers2[i] = e.target.value} style={{color: c[theme].text, borderColor: c[theme].text}}/>
                     </div>
                     <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "1.5rem", width: "12%"}}>
-                        <label htmlFor="score2">Score 2</label>
-                        <select name="score2" id="score2" className="muted-button" onChange={(e) => scores2[i] = parseInt(e.target.value)}>
+                        <select name="score2" id="score2" className="muted-button" style={{color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => scores2[i] = parseInt(e.target.value)}>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -61,7 +60,6 @@ export const SquadResults = (props) => {
                     </div>
                 </div>
             ))}
-            <br/>
             <br/>
             <button style={addingMeet[props.squadName].length !== 0 ? {marginBottom: "2rem", backgroundColor: "green", borderColor: "green"} : {marginBottom: "2rem"}} onClick={handleSubmit}>Save</button>
         </div>

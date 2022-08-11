@@ -6,6 +6,7 @@ import { ListMeets } from "./features/meets/ListMeets";
 import { MeetDetail } from "./features/meets/MeetDetail";
 import { ListTeams } from "./features/teams/ListTeams";
 import { ListFencers } from "./features/fencers/ListFencers";
+import { TeamDetail } from "./features/teams/TeamDetail";
 
 function Router() {
     return (
@@ -15,6 +16,7 @@ function Router() {
             <Route path="/meets" element={<ListMeets />}/>
             <Route path="/meetDetail" element={<MeetDetail />}/>
             <Route path="/teams" element={<ListTeams />}/>
+            <Route path="/teamDetail" element={<TeamDetail />}/>
             <Route path="/fencers" element={<ListFencers />}/>
         </Routes>
     )

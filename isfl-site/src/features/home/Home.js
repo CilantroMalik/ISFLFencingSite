@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Header } from "../header/Header";
 import { setTypes } from "../season/typesSlice";
-import {useDispatch} from "react-redux";
+import {useSelector } from "react-redux";
+import { c } from "../../colors"
 
 export const Home = () => {
-    const dispatch = useDispatch()
 
+    const theme = useSelector(state => state.theme.theme)
     // useEffect(() => {
     //     fetch("https://api.isflfencing.com/seasons.php")
     //         .then(response => response.json())
@@ -13,17 +14,17 @@ export const Home = () => {
     // })
 
     return (
-        <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100vw", height: "100vh", backgroundColor: "#2d2d2d", color: "#f1f7ed"}}>
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100vw", height: "100vh", backgroundColor: c[theme].mainBG, color: c[theme].text}}>
             <Header/>
-            <h1>Home</h1>
+            <h1 className={theme}>Home</h1>
             <br/>
-            <hr style={{width: "50vw", color: "#f1f7ed"}}/>
-            <h2>Welcome to ISFL Fencing!</h2>
-            <hr style={{width: "50vw", color: "#f1f7ed"}}/>
+            <hr style={{width: "50vw", borderColor: c[theme].text}}/>
+            <h2 className={theme}>Welcome to ISFL Fencing!</h2>
+            <hr style={{width: "50vw", borderColor: c[theme].text}}/>
             <br/>
-            <p style={{margin: "2rem"}}>ISFL Fencing is an online database for reporting fencing league results. Once results are received, ISFL Fencing generates detailed statistics for teams and individual fencers. It is a replacement for the earlier BoutShout software that stopped operating a couple years ago.</p>
-            <p style={{margin: "2rem"}}>ISFL Fencing is currently in beta testing, and is available only for the Independent Schools Fencing League.</p>
-            <p style={{margin: "2rem"}}>Inquiries / Questions: snadol@students.hackleyschool.org and/or rohan_malik@ryecountryday.org.</p>
+            <p className={theme} style={{margin: "2rem"}}>ISFL Fencing is an online database for reporting fencing league results. Once results are received, ISFL Fencing generates detailed statistics for teams and individual fencers. It is a replacement for the earlier BoutShout software that stopped operating a couple years ago.</p>
+            <p className={theme} style={{margin: "2rem"}}>ISFL Fencing is currently in beta testing, and is available only for the Independent Schools Fencing League.</p>
+            <p className={theme} style={{margin: "2rem"}}>Inquiries / Questions: snadol@students.hackleyschool.org and/or rohan_malik@ryecountryday.org.</p>
         </div>
     )
 }

@@ -5,26 +5,49 @@ import { SquadDetail } from "./SquadDetail";
 export const MeetDetail = () => {
     const location = useLocation()
     const [weapon, setWeapon] = useState("None")
-    const navigate = useNavigate()
-
-    const meetData = {
+    const [meetData, setMeetData] = useState({
         homeTeam: "RCDS",
         awayTeam: "Hackley",
         date: "02-26-2022",
-        squads: ["Boys Foil", "Girls Foil"],
+        squads: ["Boys' Foil", "Girls' Foil"],
         squadData: {
-            "Boys Foil": [{fencer1: "Placeholder 1", fencer2: "Placeholder 2", score1: 5, score2: 3}],
-            "Girls Foil": [{fencer1: "Placeholder 3", fencer2: "Placeholder 4", score1: 4, score2: 5}],
+            "Boys' Foil": [{fencer1: "Placeholder 1", fencer2: "Placeholder 2", score1: 5, score2: 3}],
+            "Girls' Foil": [{fencer1: "Placeholder 3", fencer2: "Placeholder 4", score1: 4, score2: 5}],
         }
-    }
+    })
+    const navigate = useNavigate()
 
     useEffect(() => {
-        // fetch detailed meet data from API using location.state.id
-    })
+        console.log('effect')
+        const meet = location.state.meet
+        let data = {
+            homeTeam: meet.hteam,
+            awayTeam: meet.ateam,
+            date: meet.date,
+            squads: [],
+            squadData: {}
+        }
+        for (const type of meet.types) {
+            const gw = genderWeapon(type.gender, type.weapon)
+            data.squads.push(gw)
+            let boutData = []
+            for (const bout of type.bouts) {
+                boutData.push({fencer1: bout.hfencer, fencer2: bout.afencer, score1: parseInt(bout.htouch), score2: parseInt(bout.atouch)})
+            }
+            data.squadData[gw] = boutData
+        }
+        setMeetData(data)
+    }, [setMeetData])
 
     const toggleWeapon = (w) => {
         if (weapon === w) { setWeapon("None") }
         else { setWeapon(w) }
+    }
+
+    const genderWeapon = (gen, wea) => {
+        const g = gen.charAt(0).toUpperCase() + gen.slice(1)
+        const w = wea.charAt(0).toUpperCase() + wea.slice(1)
+        return g + "' " + w
     }
 
     const exit = () => {
@@ -76,7 +99,7 @@ export const MeetDetail = () => {
                     <button onClick={() => toggleWeapon("Epee")} className={weapon === "Epee" ? "button" : "muted-button"} style={{marginLeft: "3rem", marginRight: "3rem", marginBottom: "1rem"}}>Epee</button>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                    <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Saber")} className={weapon === "Saber" ? "button" : "muted-button"}>Saber</button>
+                    <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Sabre")} className={weapon === "Sabre" ? "button" : "muted-button"}>Sabre</button>
                 </div>
                 <div style={{width: "2px", height: "5rem", marginLeft: "2rem", marginRight: "2rem", backgroundColor: "#f1f7ed", border: "1px solid #f1f7ed", borderRadius: "1px"}}> </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
@@ -85,9 +108,9 @@ export const MeetDetail = () => {
             </div>
             { weapon !== "None" &&
             <div style={{display: "flex", justifyContent: "center", width: "95%"}}>
-                <SquadDetail squadName={"Boys " + weapon} squadData={meetData.squadData["Boys " + weapon]}/>
+                <SquadDetail squadName={"Boys' " + weapon} squadData={meetData.squadData["Boys' " + weapon]}/>
                 <div style={{width: "10%"}}></div>
-                <SquadDetail squadName={"Girls " + weapon} squadData={meetData.squadData["Girls " + weapon]}/>
+                <SquadDetail squadName={"Girls' " + weapon} squadData={meetData.squadData["Girls' " + weapon]}/>
             </div>
             }
             {weapon === "None" &&

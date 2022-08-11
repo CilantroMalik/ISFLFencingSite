@@ -1,4 +1,5 @@
 import React from 'react'
+import {nanoid} from "@reduxjs/toolkit";
 
 export const SquadDetail = (props) => {
 
@@ -13,7 +14,7 @@ export const SquadDetail = (props) => {
             { props.squadData !== undefined &&
                 <><h3 style={{color: "#f1f7ed"}}>{props.squadName}</h3>
                 <hr style={{width: "100%"}}/>
-                <table>
+                <table><tbody>
                     <tr style={{fontSize: "1.4rem"}}>
                         <th style={{textAlign: "center"}}>Score 1</th>
                         <th style={{textAlign: "center"}}>Fencer 1</th>
@@ -21,14 +22,14 @@ export const SquadDetail = (props) => {
                         <th style={{textAlign: "center"}}>Score 2</th>
                     </tr>
                     {props.squadData.map(bout => (
-                        <tr style={{fontSize: "1.2rem"}}>
+                        <tr key={nanoid()} style={{fontSize: "1.2rem"}}>
                             <td style={{textAlign: "center"}}>{bout.score1}</td>
                             <td style={{textAlign: "center"}}>{bout.fencer1}</td>
                             <td style={{textAlign: "center"}}>{bout.fencer2}</td>
                             <td style={{textAlign: "center"}}>{bout.score2}</td>
                         </tr>
                     ))}
-                </table></>
+                </tbody></table></>
             }
         </div>
     )
