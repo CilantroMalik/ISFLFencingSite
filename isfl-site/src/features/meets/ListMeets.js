@@ -124,11 +124,11 @@ export const ListMeets = () => {
             </div>
             <hr style={{width: "98%", borderColor: c[theme].text}}/>
             <table style={{width: "90%", color: c[theme].text}}><tbody>
-                <tr style={{fontSize: "1.7rem"}}>
+                <tr style={{fontSize: "1.2vw"}}>
                     <th colSpan="3" style={{textAlign: "center", borderColor: c[theme].text}}>Info</th>
                     <th colSpan="6" style={{textAlign: "center", borderColor: c[theme].text}}>Scores (Bouts/Touches)</th>
                 </tr>
-                <tr style={{fontSize: "1.7rem"}}>
+                <tr style={{fontSize: "1.2vw"}}>
                     <th style={{textAlign: "center", borderColor: c[theme].text}}>Date</th>
                     <th style={{textAlign: "center", borderColor: c[theme].text}}>Home Team</th>
                     <th style={{textAlign: "center", borderColor: c[theme].text}}>Away Team</th>
@@ -142,7 +142,7 @@ export const ListMeets = () => {
                 <tr>
                 </tr>
                 {sortedMeets().map(meet => (
-                    <tr key={nanoid()} className={type === "i" ? "meet-row" : ""} style={{fontSize: "1.3rem", borderRadius: "1rem"}} onClick={() => spawnDetail(meet)}>
+                    <tr key={nanoid()} className={type === "i" ? "meet-row" : ""} style={{fontSize: "0.9vw", borderRadius: "1rem"}} onClick={() => spawnDetail(meet)}>
                         <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.date}</td>
                         {school !== meet.hteam ?
                             <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.hteam}</td> :

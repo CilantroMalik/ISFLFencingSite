@@ -111,7 +111,7 @@ export const ListTeams = () => {
                 <h2 className={theme}>Teams: {gender + "' " + weapon}</h2>
                 <hr style={{width: "98%", borderColor: c[theme].text}}/>
                 <table style={{width: "70%", color: c[theme].text}}><tbody>
-                    <tr style={{fontSize: "1.4rem"}}>
+                    <tr style={{fontSize: "1.2vw"}}>
                         <th style={{textAlign: "center", borderColor: c[theme].text}}>Team</th>
                         <th style={{textAlign: "center", borderColor: c[theme].text}}>Meets Won</th>
                         <th style={{textAlign: "center", borderColor: c[theme].text}}>Meets Lost</th>
@@ -124,7 +124,7 @@ export const ListTeams = () => {
                         <th style={{textAlign: "center", borderColor: c[theme].text}}>Touch Indicator</th>
                     </tr>
                 {teamsForSquad(gender + "' " + weapon).map(team => (
-                    <tr key={nanoid()} style={{fontSize: "1.2rem"}} onClick={() => navigate("/teamDetail", {state: {team: team, seasonType: season.type}})}>
+                    <tr key={nanoid()} style={{fontSize: "0.9vw"}} onClick={() => navigate("/teamDetail", {state: {team: team, seasonType: season.type}})}>
                         <td style={{textAlign: "center", borderColor: c[theme].text}}><strong>{team.schoolName}</strong></td>
                         <td style={{textAlign: "center", borderColor: c[theme].text}}><strong>{team.wins}</strong></td>
                         <td style={{textAlign: "center", borderColor: c[theme].text}}><strong>{team.losses}</strong></td>

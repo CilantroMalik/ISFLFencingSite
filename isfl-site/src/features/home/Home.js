@@ -22,9 +22,9 @@ export const Home = () => {
             <h2 className={theme}>Welcome to ISFL Fencing!</h2>
             <hr style={{width: "50vw", borderColor: c[theme].text}}/>
             <br/>
-            <p className={theme} style={{margin: "2rem"}}>ISFL Fencing is an online database for reporting fencing league results. Once results are received, ISFL Fencing generates detailed statistics for teams and individual fencers. It is a replacement for the earlier BoutShout software that stopped operating a couple years ago.</p>
+            <p className={theme} style={{margin: "2rem", textAlign: "center"}}>ISFL Fencing is an online database for reporting fencing league results. Once results are received, ISFL Fencing generates detailed statistics for teams and individual fencers. It is a replacement for the earlier BoutShout software that stopped operating a couple years ago.</p>
             <p className={theme} style={{margin: "2rem"}}>ISFL Fencing is currently in beta testing, and is available only for the Independent Schools Fencing League.</p>
-            <p className={theme} style={{margin: "2rem"}}>Inquiries / Questions: snadol@students.hackleyschool.org and/or rohan_malik@ryecountryday.org.</p>
+            <p className={theme} style={{margin: "2rem"}}>Please direct any questions and concerns to snadol@students.hackleyschool.org and/or rohan_malik@ryecountryday.org.</p>
         </div>
     )
 }

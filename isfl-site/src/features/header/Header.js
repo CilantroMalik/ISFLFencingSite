@@ -34,7 +34,7 @@ export const Header = () => {
                 onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => navigate('/')}>ISFL Fencing</h1>
             <button style={{marginLeft: "1rem"}} onClick={switchTheme}>Toggle {theme === "dark" ? "Light" : "Dark"} Theme</button>
             <h5 className={theme} style={{marginLeft: "auto"}}>Season: </h5>
-            <select style={{width: "7vw", marginLeft: "1rem", color: c[theme].text, borderColor: c[theme].text}} className="muted-button" name="season" id="season" onChange={(e) => {
+            <select style={{width: "8rem", marginLeft: "1rem", color: c[theme].text, borderColor: c[theme].text}} className="muted-button" name="season" id="season" onChange={(e) => {
                 console.log(e.target.value)
                 dispatch(setSeason({
                     currentSeason: e.target.value,

@@ -77,7 +77,7 @@ export const ListFencers = () => {
             </div>
             {fencersSearch().length !== 0 &&
                 <table style={{width: "70%", color: c[theme].text}}><tbody>
-                    <tr style={{fontSize: "1.4rem"}}>
+                    <tr style={{fontSize: "1.2vw"}}>
                         <th style={{textAlign: "center"}}>Name</th>
                         <th style={{textAlign: "center"}}>School</th>
                         <th style={{textAlign: "center"}}>Gender/Weapon</th>
@@ -90,7 +90,7 @@ export const ListFencers = () => {
                         <th style={{textAlign: "center"}}>Touch Indicator</th>
                     </tr>
                     {fencersSearch().map(fencer => (
-                        <tr key={nanoid()} style={{fontSize: "1.2rem"}}>
+                        <tr key={nanoid()} style={{fontSize: "0.9vw"}}>
                             <td style={{textAlign: "center", borderColor: c[theme].text}}>{fencer.name}</td>
                             <td style={{textAlign: "center", borderColor: c[theme].text}}>{fencer.school}</td>
                             <td style={{textAlign: "center", borderColor: c[theme].text}}>{genderWeapon(fencer)}</td>
