@@ -1,6 +1,6 @@
 const lightTheme = {
     headerBG: "#d3d3d3",
-    mainBG: "#f1f7ed",
+    mainBG: "#eeefed",
     text: "#2d2d2d"
 }
 
