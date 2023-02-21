@@ -1055,7 +1055,12 @@ caption {
 }
 
 .meet-row:hover {
-  background-color: var(--meetrow);
+  background-color: #3f3f3f;
+  transition: background-color 0.3s ease-out;
+}
+
+.meet-row-light:hover {
+  background-color: #dadada;
   transition: background-color 0.3s ease-out;
 }
 

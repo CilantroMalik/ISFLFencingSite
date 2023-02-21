@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addAllBoutsToSquad } from "./addMeetSlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { c } from "../../colors"
+import { isMobile } from "react-device-detect";
 
 export const SquadResults = (props) => {
     const addingMeet = useSelector(state => state.addMeet)
@@ -31,8 +32,8 @@ export const SquadResults = (props) => {
             <h3 style={{color: c[theme].text, marginBottom: "0.3rem"}}>{props.squadName}</h3>
             <hr style={{borderColor: c[theme].text, width: "90%", marginBottom: "1rem"}}/>
             {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                <div key={nanoid()} style={{display: "flex"}}>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: "1.5rem", width: "12%",  marginBottom: "1rem"}}>
+                <div key={nanoid()} style={{display: "flex", justifyContent: "center"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: isMobile ? "0.7rem" : "1.5rem", width: isMobile ? "9%" : "12%",  marginBottom: "1rem"}}>
                         <select name="score1" id="score1" className="muted-button" style={{color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => scores1[i] = parseInt(e.target.value)}>
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -42,13 +43,13 @@ export const SquadResults = (props) => {
                             <option value="5">5</option>
                         </select>
                     </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: "1.5rem", width: "35%"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: isMobile ? "0.7rem" : "1.5rem", width: isMobile ? "30%" : "35%"}}>
                         <input type="text" id="fencer1" name="fencer1" placeholder="Home Fencer" onChange={(e) => fencers1[i] = e.target.value} style={{color: c[theme].text, borderColor: c[theme].text}}/>
                     </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "1.5rem", width: "35%"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: isMobile ? "0.7rem" : "1.5rem", width: isMobile ? "30%" : "35%"}}>
                         <input type="text" id="fencer2" name="fencer2" placeholder="Away Fencer" onChange={(e) => fencers2[i] = e.target.value} style={{color: c[theme].text, borderColor: c[theme].text}}/>
                     </div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "1.5rem", width: "12%"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: isMobile ? "0.7rem" : "1.5rem", width: isMobile ? "9%" : "12%"}}>
                         <select name="score2" id="score2" className="muted-button" style={{color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => scores2[i] = parseInt(e.target.value)}>
                             <option value="0">0</option>
                             <option value="1">1</option>

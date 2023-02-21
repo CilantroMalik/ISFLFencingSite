@@ -6,6 +6,7 @@ import { Header } from "../header/Header";
 import { addHomeTeam, addAwayTeam, addDate, addAllBoutsToSquad, reset } from "./addMeetSlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { c } from "../../colors"
+import { isMobile } from "react-device-detect";
 
 export const AddMeet = () => {
     const addedMeet = useSelector(state => state.addMeet)
@@ -20,6 +21,7 @@ export const AddMeet = () => {
     const [home, setHome] = useState("")
     const [away, setAway] = useState("")
     const [date, setDate] = useState("")
+    const [passTriesRemaining, setPassTriesRemaining] = useState(3)
 
     const [fieldsFilled, setFieldsFilled] = useState({"Boys' Foil": {}, "Girls' Foil": {}, "Boys' Epee": {}, "Girls' Epee": {}, "Boys' Sabre": {}, "Girls' Sabre": {}})
     const [teamGender, setTeamGender] = useState("")
@@ -123,65 +125,132 @@ export const AddMeet = () => {
         let h = 0xbadface
         for(let i = 0; i < s.length; i++)
             h = Math.imul(h ^ s.charCodeAt(i), 2654435761);
+        console.log((h ^ h >>> 16) >>> 0)
         return (h ^ h >>> 16) >>> 0;
     };
 
+    const updateAuth = (pass) => {
+        if (hash(pass) === 2719150479) {
+            setAuth("success")
+        } else {
+            if (passTriesRemaining === 3) { setPassTriesRemaining(2) }
+            if (passTriesRemaining === 2) { setPassTriesRemaining(1) }
+            if (passTriesRemaining === 1) { navigate("/") }
+            setAuth("failure")
+        }
+    }
+
     return (
         <>
-        {auth !== "success" && <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <Header />
+        {auth !== "success" &&
+            <><Header/>
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h3 className={theme}>Password required to access this page</h3>
             <input type="text" placeholder="Enter password" onChange={(e) => setPass(e.target.value)} style={{width: "60%", color: c[theme].text, borderColor: c[theme].text}}/>
-            <button onClick={() => setAuth(hash(pass) === 1546490178 ? "success" : "failure")} style={{marginTop: "1rem"}}>Proceed</button>
-            {auth === "failure" && <><h4 className={theme} style={{marginTop: "3rem"}}>Incorrect password.</h4><p className={theme}>Try again, or alternatively, please don't if you know you aren't supposed to be here :)</p></>}
-        </div>}
-        { auth === "success" && <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <Header />
+            <button onClick={() => updateAuth(pass)} style={{marginTop: "1rem"}}>Proceed</button>
+            {auth === "failure" && <><h4 className={theme} style={{marginTop: "3rem"}}>Incorrect password.</h4><p className={theme}>Try again. {passTriesRemaining} attempts remaining.</p></>}
+        </div></>}
+        { auth === "success" &&
+        <><Header />
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h2 className={theme} style={{marginBottom: "0rem"}}>Add Meet</h2>
-            {season.type === "t" ? <h6 className={theme} style={{marginTop: "0rem"}}>This is a team stat season; you'll only need to add summary statistics, nothing about individual bouts.</h6> :
-                <h6 className={theme} style={{marginTop: "0rem"}}>This is an individual stat season; you'll need to add information about fencers and individual bouts.</h6>}
+            {season.type === "t" ? <h6 className={theme} style={{marginTop: "0rem", textAlign: "center"}}>This is a team stat season; you'll only need to add summary statistics, nothing about individual bouts.</h6> :
+                <h6 className={theme} style={{marginTop: "0rem", textAlign: "center"}}>This is an individual stat season; you'll need to add information about fencers and individual bouts.</h6>}
             <hr style={{borderColor: c[theme].text, width: "80%", marginBottom: "1rem"}}/>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
-                    <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Home Team</label>
-                    <input type="text" placeholder="Home Team" style={{marginLeft: "1rem", marginRight: "1rem", color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setHome(e.target.value); dispatch(addHomeTeam(e.target.value))}}/>
+            { isMobile ?
+                <>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
+                            <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Home Team</label>
+                            <input type="text" placeholder="Home Team" style={{marginLeft: "0.5rem", marginRight: "0.5rem", color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setHome(e.target.value); dispatch(addHomeTeam(e.target.value))}}/>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
+                            <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Away Team</label>
+                            <input type="text" placeholder="Away Team" style={{marginLeft: "0.5rem", marginRight: "0.5rem", color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setAway(e.target.value); dispatch(addAwayTeam(e.target.value))}}/>
+                        </div>
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
+                            <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Date</label>
+                            <input type="date" placeholder="Date" style={{marginLeft: "1rem", marginRight: "1rem", color: addedMeet.date === "" ? "gray" : c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setDate(e.target.value); dispatch(addDate(e.target.value))}}/>
+                        </div>
+                    </div>
+                </>
+                :
+                <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
+                        <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Home Team</label>
+                        <input type="text" placeholder="Home Team" style={{marginLeft: "1rem", marginRight: "1rem", color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setHome(e.target.value); dispatch(addHomeTeam(e.target.value))}}/>
+                    </div>
+                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
+                        <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Away Team</label>
+                        <input type="text" placeholder="Away Team" style={{marginLeft: "1rem", marginRight: "1rem", color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setAway(e.target.value); dispatch(addAwayTeam(e.target.value))}}/>
+                    </div>
+                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
+                        <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Date</label>
+                        <input type="date" placeholder="Date" style={{marginLeft: "1rem", marginRight: "1rem", color: addedMeet.date === "" ? "gray" : c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setDate(e.target.value); dispatch(addDate(e.target.value))}}/>
+                    </div>
                 </div>
-                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
-                    <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Away Team</label>
-                    <input type="text" placeholder="Away Team" style={{marginLeft: "1rem", marginRight: "1rem", color: c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setAway(e.target.value); dispatch(addAwayTeam(e.target.value))}}/>
-                </div>
-                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginLeft: "1rem", marginRight: "1rem"}}>
-                    <label className={theme} htmlFor="homeBouts" style={{marginBottom: '0.4rem'}}>Date</label>
-                    <input type="date" placeholder="Date" style={{marginLeft: "1rem", marginRight: "1rem", color: addedMeet.date === "" ? "gray" : c[theme].text, borderColor: c[theme].text}} onChange={(e) => {setDate(e.target.value); dispatch(addDate(e.target.value))}}/>
-                </div>
-            </div>
-            <h3>Choose a weapon or finish adding meet:</h3>
+            }
+
+            <h3 style={{color: c[theme].text}}>Add squads or finish adding meet:</h3>
             {season.type === "i" &&
-                <><div style={{display: "flex", justifyContent: "center"}}>
-                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                        <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Foil</button>
-                        <p className={theme}><span style={{color: isFilled("Boys' Foil")}}>Boys</span> / <span style={{color: isFilled("Girls' Foil")}}>Girls</span></p>
+                <>
+                { isMobile ?
+                    <><div style={{display: "flex", justifyContent: "center"}}>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Foil</button>
+                            <p className={theme}><span style={{color: isFilled("Boys' Foil")}}>Boys</span> / <span style={{color: isFilled("Girls' Foil")}}>Girls</span></p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button onClick={() => toggleWeapon("Epee")} className={weapon === "Epee" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")} style={{marginLeft: "1.5rem", marginRight: "1.5rem", marginBottom: "1rem"}}>Epee</button>
+                            <p className={theme}><span style={{color: isFilled("Boys' Epee")}}>Boys</span> / <span style={{color: isFilled("Girls' Epee")}}>Girls</span></p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Sabre")} className={weapon === "Sabre" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Sabre</button>
+                            <p className={theme}><span style={{color: isFilled("Boys' Sabre")}}>Boys</span> / <span style={{color: isFilled("Girls' Sabre")}}>Girls</span></p>
+                        </div>
                     </div>
-                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                        <button onClick={() => toggleWeapon("Epee")} className={weapon === "Epee" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")} style={{marginLeft: "3rem", marginRight: "3rem", marginBottom: "1rem"}}>Epee</button>
-                        <p className={theme}><span style={{color: isFilled("Boys' Epee")}}>Boys</span> / <span style={{color: isFilled("Girls' Epee")}}>Girls</span></p>
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button onClick={finish} style={{backgroundColor: (home !== "" && away !== "" && date !== "") ? "green" : "red", borderColor: (home !== "" && away !== "" && date !== "") ? "green" : "red", marginBottom: "1rem"}}>Finish</button>
+                            <p className={theme}>{(home !== "" && away !== "" && date !== "") ? "Click to add meet" : "Add required meet info"}</p>
+                        </div>
+                    </div></>
+                    :
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Foil</button>
+                            <p className={theme}><span style={{color: isFilled("Boys' Foil")}}>Boys</span> / <span style={{color: isFilled("Girls' Foil")}}>Girls</span></p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button onClick={() => toggleWeapon("Epee")} className={weapon === "Epee" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")} style={{marginLeft: "3rem", marginRight: "3rem", marginBottom: "1rem"}}>Epee</button>
+                            <p className={theme}><span style={{color: isFilled("Boys' Epee")}}>Boys</span> / <span style={{color: isFilled("Girls' Epee")}}>Girls</span></p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Sabre")} className={weapon === "Sabre" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Sabre</button>
+                            <p className={theme}><span style={{color: isFilled("Boys' Sabre")}}>Boys</span> / <span style={{color: isFilled("Girls' Sabre")}}>Girls</span></p>
+                        </div>
+                        <div style={{width: "2px", height: "5rem", marginLeft: "2rem", marginRight: "2rem", backgroundColor: c[theme].text, border: "1px solid "+c[theme].text, borderRadius: "1px"}}></div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                            <button onClick={finish} style={{backgroundColor: (home !== "" && away !== "" && date !== "") ? "green" : "red", borderColor: (home !== "" && away !== "" && date !== "") ? "green" : "red", marginBottom: "1rem"}}>Finish</button>
+                            <p className={theme}>{(home !== "" && away !== "" && date !== "") ? "Click to add meet" : "Add required meet info"}</p>
+                        </div>
                     </div>
-                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                        <button style={{marginBottom: "1rem"}} onClick={() => toggleWeapon("Sabre")} className={weapon === "Sabre" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Sabre</button>
-                        <p className={theme}><span style={{color: isFilled("Boys' Sabre")}}>Boys</span> / <span style={{color: isFilled("Girls' Sabre")}}>Girls</span></p>
-                    </div>
-                    <div style={{width: "2px", height: "5rem", marginLeft: "2rem", marginRight: "2rem", backgroundColor: c[theme].text, border: "1px solid "+c[theme].text, borderRadius: "1px"}}></div>
-                    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                        <button onClick={finish} style={{backgroundColor: (home !== "" && away !== "" && date !== "") ? "green" : "red", borderColor: (home !== "" && away !== "" && date !== "") ? "green" : "red", marginBottom: "1rem"}}>Finish</button>
-                        <p className={theme}>{(home !== "" && away !== "" && date !== "") ? "Click to add meet" : "Add required meet info"}</p>
-                    </div>
-                </div>
-            {weapon !== "None" &&
+                }
+            {(weapon !== "None" && !isMobile) &&
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <SquadResults squadName={"Boys' " + weapon}/>
                     <div style={{width: "10%"}}></div>
                     <SquadResults squadName={"Girls' " + weapon}/>
                 </div>
+            }
+            {(weapon !== "None" && isMobile) &&
+                <>
+                    <SquadResults squadName={"Boys' " + weapon}/>
+                    <hr style={{borderColor: c[theme].text, width: "98%", marginBottom: "1rem"}}/>
+                    <SquadResults squadName={"Girls' " + weapon}/>
+                </>
             }
             {weapon === "None" &&
                 <><h4 className={theme}>Squads added:</h4>
@@ -278,7 +347,7 @@ export const AddMeet = () => {
                         </>}
                 </>
             }
-        </div>}</>
+        </div></>}</>
     )
 
 }

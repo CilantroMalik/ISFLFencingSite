@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { c } from "../../colors"
 import '../../main.css'
+import { isMobile } from "react-device-detect";
 
 export const ListMeets = () => {
     // const meets = [{"id": 1646142830, "season": "20212022", "hteam": "Avenues", "ateam": "St Anns", "date": "2022-02-10",
@@ -84,7 +85,7 @@ export const ListMeets = () => {
     const findType1 = (meet, gender, weapon) => {
         for (const type of meet.types) {
             if (type.gender === gender && type.weapon === weapon) {
-                return type.hBW + "-" + type.aBW
+                return "\u00A0" + type.hBW + "-" + type.aBW + "\u00A0"
             }
         }
     }
@@ -107,15 +108,16 @@ export const ListMeets = () => {
     }
 
     const spawnDetail = (meetObj) => {
-        if (type === "i") { navigate("/meetDetail", {state: {meet: meetObj}}) }
+        if (type === "i") { navigate({pathname: "/meetDetail", search: "?id=" + meetObj.id + "&season=" + season}, {state: {meet: meetObj}}) }
     }
 
     return (
+        <>
+        <Header/>
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <Header />
             <h1 className={theme} style={{marginBottom: type === "i" ? "0" : "1rem"}}>Meets</h1>
-            {type === "i" && <h5>Click on a meet to view a detailed breakdown of the bouts.</h5>}
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "25%"}}>
+            {type === "i" && <h5 style={{color: c[theme].text, textAlign: "center"}}>Click on a meet to view a detailed breakdown of the bouts.</h5>}
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: isMobile ? "80%" : "25%"}}>
                 <h4 className={theme} style={{width: "100%", textAlign: "center"}}>Filter by school:</h4>
                 <select style={{flexGrow: 1, color: c[theme].text, borderColor: c[theme].text}} name="school" id="school" className="muted-button" onChange={(e) => setSchool(e.target.value)}>
                     <option value="All" selected={school === "All"}>All</option>
@@ -123,12 +125,14 @@ export const ListMeets = () => {
                 </select>
             </div>
             <hr style={{width: "98%", borderColor: c[theme].text}}/>
-            <table style={{width: "90%", color: c[theme].text}}><tbody>
+            {!isMobile && <table style={{width: "90%", color: c[theme].text}}>
+                <tbody>
                 <tr style={{fontSize: "1.2vw"}}>
                     <th colSpan="3" style={{textAlign: "center", borderColor: c[theme].text}}>Info</th>
-                    <th colSpan="6" style={{textAlign: "center", borderColor: c[theme].text}}>Scores (Bouts/Touches)</th>
+                    <th colSpan="6" style={{textAlign: "center", borderColor: c[theme].text}}>Scores (Bouts/Touches)
+                    </th>
                 </tr>
-                <tr style={{fontSize: "1.2vw"}}>
+                <tr style={{fontSize: "1.1vw"}}>
                     <th style={{textAlign: "center", borderColor: c[theme].text}}>Date</th>
                     <th style={{textAlign: "center", borderColor: c[theme].text}}>Home Team</th>
                     <th style={{textAlign: "center", borderColor: c[theme].text}}>Away Team</th>
@@ -142,25 +146,77 @@ export const ListMeets = () => {
                 <tr>
                 </tr>
                 {sortedMeets().map(meet => (
-                    <tr key={nanoid()} className={type === "i" ? "meet-row" : ""} style={{fontSize: "0.9vw", borderRadius: "1rem"}} onClick={() => spawnDetail(meet)}>
+                    <tr key={nanoid()}
+                        className={type === "i" ? (theme === "dark" ? "meet-row" : "meet-row-light") : ""}
+                        style={{fontSize: "0.9vw", borderRadius: "1rem"}} onClick={() => spawnDetail(meet)}>
                         <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.date}</td>
                         {school !== meet.hteam ?
                             <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.hteam}</td> :
-                            <td style={{textAlign: "center", borderColor: c[theme].text}}><strong><em>{meet.hteam}</em></strong></td>
+                            <td style={{textAlign: "center", borderColor: c[theme].text}}><strong><em>{meet.hteam}</em></strong>
+                            </td>
                         }
                         {school !== meet.ateam ?
                             <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.ateam}</td> :
-                            <td style={{textAlign: "center", borderColor: c[theme].text}}><strong><em>{meet.ateam}</em></strong></td>
+                            <td style={{textAlign: "center", borderColor: c[theme].text}}><strong><em>{meet.ateam}</em></strong>
+                            </td>
                         }
-                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "foil") ? <span><strong>{findType1(meet, "boys", "foil")}</strong> {findType2(meet, "boys", "foil")}</span> : "No results"}</td>
-                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "foil") ? <span><strong>{findType1(meet, "girls", "foil")}</strong> {findType2(meet, "girls", "foil")}</span> : "No results"}</td>
-                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "epee") ? <span><strong>{findType1(meet, "boys", "epee")}</strong> {findType2(meet, "boys", "epee")}</span> : "No results"}</td>
-                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "epee") ? <span><strong>{findType1(meet, "girls", "epee")}</strong> {findType2(meet, "girls", "epee")}</span> : "No results"}</td>
-                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "sabre") ? <span><strong>{findType1(meet, "boys", "sabre")}</strong> {findType2(meet, "boys", "sabre")}</span> : "No results"}</td>
-                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "sabre") ? <span><strong>{findType1(meet, "girls", "sabre")}</strong> {findType2(meet, "girls", "sabre")}</span> : "No results"}</td>
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "foil") ?
+                            <span><strong>{findType1(meet, "boys", "foil")}</strong> {findType2(meet, "boys", "foil")}</span> : "No results"}</td>
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "foil") ?
+                            <span><strong>{findType1(meet, "girls", "foil")}</strong> {findType2(meet, "girls", "foil")}</span> : "No results"}</td>
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "epee") ?
+                            <span><strong>{findType1(meet, "boys", "epee")}</strong> {findType2(meet, "boys", "epee")}</span> : "No results"}</td>
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "epee") ?
+                            <span><strong>{findType1(meet, "girls", "epee")}</strong> {findType2(meet, "girls", "epee")}</span> : "No results"}</td>
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "sabre") ?
+                            <span><strong>{findType1(meet, "boys", "sabre")}</strong> {findType2(meet, "boys", "sabre")}</span> : "No results"}</td>
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "sabre") ?
+                            <span><strong>{findType1(meet, "girls", "sabre")}</strong> {findType2(meet, "girls", "sabre")}</span> : "No results"}</td>
                     </tr>
                 ))}
-            </tbody></table>
+                </tbody>
+            </table>}
         </div>
+            {isMobile &&
+            <table style={{width: "95%", color: c[theme].text}}><tbody>
+            <tr style={{fontSize: "1.1rem"}}>
+                <th colSpan="3" style={{textAlign: "center", borderColor: c[theme].text}}>Info</th>
+                <th colSpan="6" style={{textAlign: "center", borderColor: c[theme].text}}>Scores (Bouts/Touches)</th>
+            </tr>
+            <tr style={{fontSize: "1rem"}}>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Date</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Home Team</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Away Team</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Boys' Foil</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Girls' Foil</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Boys' Epee</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Girls' Epee</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Boys' Sabre</th>
+                <th style={{textAlign: "center", borderColor: c[theme].text}}>Girls' Sabre</th>
+            </tr>
+            <tr>
+            </tr>
+            {sortedMeets().map(meet => (
+                <tr key={nanoid()} className={type === "i" ? (theme === "dark" ? "meet-row" : "meet-row-light") : ""} style={{fontSize: "0.8rem", borderRadius: "1rem"}} onClick={() => spawnDetail(meet)}>
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.date}</td>
+                    {school !== meet.hteam ?
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.hteam}</td> :
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}><strong><em>{meet.hteam}</em></strong></td>
+                    }
+                    {school !== meet.ateam ?
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}>{meet.ateam}</td> :
+                        <td style={{textAlign: "center", borderColor: c[theme].text}}><strong><em>{meet.ateam}</em></strong></td>
+                    }
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "foil") ? <span><strong>{findType1(meet, "boys", "foil")}</strong> <span style={{fontSize: "0.6rem"}}>{findType2(meet, "boys", "foil")}</span></span> : "No results"}</td>
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "foil") ? <span><strong>{findType1(meet, "girls", "foil")}</strong> <span style={{fontSize: "0.6rem"}}>{findType2(meet, "girls", "foil")}</span></span> : "No results"}</td>
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "epee") ? <span><strong>{findType1(meet, "boys", "epee")}</strong> <span style={{fontSize: "0.6rem"}}>{findType2(meet, "boys", "epee")}</span></span> : "No results"}</td>
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "epee") ? <span><strong>{findType1(meet, "girls", "epee")}</strong> <span style={{fontSize: "0.6rem"}}>{findType2(meet, "girls", "epee")}</span></span> : "No results"}</td>
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "boys", "sabre") ? <span><strong>{findType1(meet, "boys", "sabre")}</strong> <span style={{fontSize: "0.6rem"}}>{findType2(meet, "boys", "sabre")}</span></span> : "No results"}</td>
+                    <td style={{textAlign: "center", borderColor: c[theme].text}}>{hasType(meet, "girls", "sabre") ? <span><strong>{findType1(meet, "girls", "sabre")}</strong> <span style={{fontSize: "0.6rem"}}>{findType2(meet, "girls", "sabre")}</span></span> : "No results"}</td>
+                </tr>
+            ))}
+            </tbody></table>
+            }
+        </>
     )
 }
