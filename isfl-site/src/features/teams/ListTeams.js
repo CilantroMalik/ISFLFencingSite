@@ -100,14 +100,14 @@ export const ListTeams = () => {
 
     return (
         <>
-        <Header />
+        <div className="hidePrint"><Header/></div>
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: c[theme].mainBG}}>
-            <h1 className={theme}>Team List</h1>
-            <h3 className={theme}>Choose a gender and weapon to view teams:</h3>
+            <h1 className={theme + " hidePrint"}>Team List</h1>
+            <h3 className={theme+ " hidePrint"}>Choose a gender and weapon to view teams:</h3>
             {
                 isMobile ?
                     <>
-                        <div style={{display: "flex", justifyContent: "center"}}>
+                        <div style={{display: "flex", justifyContent: "center"}} className="hidePrint">
                             <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
                                 <button style={gender === "Boys" ? {marginBottom: "1rem"} : {marginBottom: "1rem", color: c[theme].text}}
                                         onClick={() => setGender("Boys")} className={gender === "Boys" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Boys</button>
@@ -117,7 +117,7 @@ export const ListTeams = () => {
                                         onClick={() => setGender("Girls")} className={gender === "Girls" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Girls</button>
                             </div>
                         </div>
-                        <div style={{display: "flex", justifyContent: "center"}}>
+                        <div style={{display: "flex", justifyContent: "center"}} className="hidePrint">
                             <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                                 <button style={weapon === "Foil" ? {marginBottom: "1rem"} : {marginBottom: "1rem", color: c[theme].text}}
                                         onClick={() => toggleWeapon("Foil")} className={weapon === "Foil" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Foil</button>
@@ -133,7 +133,7 @@ export const ListTeams = () => {
                         </div>
                     </>
                 :
-                    <div style={{display: "flex", justifyContent: "center"}}>
+                    <div style={{display: "flex", justifyContent: "center"}} className="hidePrint">
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
                             <button style={gender === "Boys" ? {marginBottom: "1rem"} : {marginBottom: "1rem", color: c[theme].text}}
                                     onClick={() => setGender("Boys")} className={gender === "Boys" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Boys</button>

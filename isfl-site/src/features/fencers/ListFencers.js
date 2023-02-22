@@ -94,6 +94,7 @@ export const ListFencers = () => {
 
     const fencersSearch = () => {
         let filtered = fencers
+        filtered = filtered.filter(fencer => fencer.name !== "N/A")
         if (searchFencer !== "") { filtered = filtered.filter(fencer => containsName(fencer.name)) }
         if (searchSchool !== "") { filtered = filtered.filter(fencer => fencer.school.toLowerCase().startsWith(searchSchool.toLowerCase())) }
         if (gender !== "") { filtered = filtered.filter(fencer => fencer.gender === gender.toLowerCase()) }
@@ -177,14 +178,14 @@ export const ListFencers = () => {
 
     return (
         <>
-        <Header />
+        <div className="hidePrint"><Header /></div>
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h1 style={{marginBottom: "1rem"}} className={theme}>Fencers</h1>
-            <h5 style={{textAlign: "center"}} className={theme}>Click on a fencer to see a detailed breakdown of their bouts.</h5>
-            <hr style={{width: "98%", borderColor: c[theme].text}}/>
+            <h5 style={{textAlign: "center"}} className={theme + " hidePrint"}>Click on a fencer to see a detailed breakdown of their bouts.</h5>
+            <hr style={{width: "98%", borderColor: c[theme].text}} className="hidePrint"/>
             {
                 isMobile ?
-                    <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "2rem"}}>
+                    <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "2rem"}} className="hidePrint">
                         <input type="text" placeholder="Search by name..." value={searchFencer} onChange={(e) => setSearchFencer(e.target.value)}
                                style={{marginRight: "1.5rem", color: c[theme].text, borderColor: c[theme].text}}/>
                         <input type="text" placeholder="Search by school..." value={searchSchool} onChange={(e) => setSearchSchool(e.target.value)}
@@ -192,7 +193,7 @@ export const ListFencers = () => {
                         <button onClick={clearClicked}>Clear</button>
                     </div>
                 :
-                    <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "2rem"}}>
+                    <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "2rem"}} className="hidePrint">
                         <input type="text" placeholder="Search by name..." value={searchFencer} onChange={(e) => setSearchFencer(e.target.value)}
                                style={{marginRight: "3rem", color: c[theme].text, borderColor: c[theme].text}}/>
                         <input type="text" placeholder="Search by school..." value={searchSchool} onChange={(e) => setSearchSchool(e.target.value)}
@@ -200,11 +201,11 @@ export const ListFencers = () => {
                         <button onClick={clearClicked}>Clear</button>
                     </div>
             }
-            <h5 className={theme}>Also, optionally, filter by gender and/or weapon:</h5>
+            <h5 className={theme + " hidePrint"}>Also, optionally, filter by gender and/or weapon:</h5>
             {
                 isMobile ?
                     <>
-                    <div style={{display: "flex", justifyContent: "center", marginBottom: "1rem"}}>
+                    <div style={{display: "flex", justifyContent: "center", marginBottom: "1rem"}} className="hidePrint">
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
                             <button style={gender === "" ? {marginBottom: "1rem"} : {marginBottom: "1rem", color: c[theme].text}}
                                     onClick={() => setGender("")} className={gender === "" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>All</button>
@@ -218,7 +219,7 @@ export const ListFencers = () => {
                                     onClick={() => setGender("Girls")} className={gender === "Girls" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>Girls</button>
                         </div>
                     </div>
-                    <div style={{display: "flex", justifyContent: "center", marginBottom: "2rem"}}>
+                    <div style={{display: "flex", justifyContent: "center", marginBottom: "2rem"}} className="hidePrint">
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                             <button style={weapon === "" ? {marginBottom: "1rem"} : {marginBottom: "1rem", color: c[theme].text}}
                                     onClick={() => setWeapon("")} className={weapon === "" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>All</button>
@@ -238,7 +239,7 @@ export const ListFencers = () => {
                     </div>
                     </>
                 :
-                    <div style={{display: "flex", justifyContent: "center", marginBottom: "2rem"}}>
+                    <div style={{display: "flex", justifyContent: "center", marginBottom: "2rem"}} className="hidePrint">
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} >
                             <button style={gender === "" ? {marginBottom: "1rem"} : {marginBottom: "1rem", color: c[theme].text}}
                                     onClick={() => setGender("")} className={gender === "" ? "button" : (theme === "dark" ? "muted-button" : "muted-button-light")}>All</button>
@@ -270,7 +271,7 @@ export const ListFencers = () => {
                         </div>
                     </div>
             }
-            <p style={{textAlign: "center"}} className={theme}>Click on the <strong>Bout Indicator</strong> or <strong>% of Meets Fenced</strong> headers to sort by those metrics.</p>
+            <p style={{textAlign: "center"}} className={theme + " hidePrint"}>Click on the <strong>Bout Indicator</strong> or <strong>% of Meets Fenced</strong> headers to sort by those metrics.</p>
             {!isMobile && fencersSearch().length !== 0 &&
                 <table style={{width: "95%", color: c[theme].text}}><tbody>
                 <tr style={{fontSize: isMobile ? "1rem" : "1.1vw"}}>

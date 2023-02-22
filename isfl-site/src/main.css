@@ -33,6 +33,27 @@
 
 }
 
+@media print {
+  .dark {
+    color: #2d2d2d;
+  }
+  table {
+    color: #2d2d2d !important
+  }
+  hr {
+    border-color: #2d2d2d !important;
+  }
+  td {
+    border-color: #2d2d2d !important;
+  }
+  th {
+    border-color: #2d2d2d !important;
+  }
+  .hidePrint {
+    display: none !important;
+  }
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */

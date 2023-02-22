@@ -113,11 +113,11 @@ export const ListMeets = () => {
 
     return (
         <>
-        <Header/>
+        <div className="hidePrint"><Header/></div>
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h1 className={theme} style={{marginBottom: type === "i" ? "0" : "1rem"}}>Meets</h1>
-            {type === "i" && <h5 style={{color: c[theme].text, textAlign: "center"}}>Click on a meet to view a detailed breakdown of the bouts.</h5>}
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: isMobile ? "80%" : "25%"}}>
+            {type === "i" && <h5 style={{color: c[theme].text, textAlign: "center"}} className="hidePrint">Click on a meet to view a detailed breakdown of the bouts.</h5>}
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: isMobile ? "80%" : "25%"}} className="hidePrint">
                 <h4 className={theme} style={{width: "100%", textAlign: "center"}}>Filter by school:</h4>
                 <select style={{flexGrow: 1, color: c[theme].text, borderColor: c[theme].text}} name="school" id="school" className="muted-button" onChange={(e) => setSchool(e.target.value)}>
                     <option value="All" selected={school === "All"}>All</option>

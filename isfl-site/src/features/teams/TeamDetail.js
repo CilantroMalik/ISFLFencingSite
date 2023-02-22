@@ -167,7 +167,10 @@ export const TeamDetail = () => {
         const extracted = []
         for (const fencerName of Object.keys(apiRes)) {
             const fData = apiRes[fencerName]
-            extracted.push({name: fencerName, school: fData.school, gender: fData.gender, weapon: fData.weapon, boutsWon: fData.boutsWon, boutsLost: fData.boutsLost, touchesWon: fData.touchesWon, touchesLost: fData.touchesLost})
+            if (fencerName === "N/A") { console.log("lul") }
+            if (fencerName !== "N/A") {
+                extracted.push({name: fencerName, school: fData.school, gender: fData.gender, weapon: fData.weapon, boutsWon: fData.boutsWon, boutsLost: fData.boutsLost, touchesWon: fData.touchesWon, touchesLost: fData.touchesLost})
+            }
         }
         const filtered = extracted.filter(fencer => genderWeapon(fencer.gender, fencer.weapon) === squad)
         const sorted = filtered.sort((f1, f2) => {
@@ -227,7 +230,7 @@ export const TeamDetail = () => {
     }
 
     const sortedFencerKeys = (fs) => {
-        return Object.keys(fs).sort((n1, n2) => {
+        return Object.keys(fs).filter(f => f !== "N/A").sort((n1, n2) => {
             const f1score = (fs[n1].boutsWon - fs[n1].boutsLost)*10000 + (fs[n1].boutsWon + fs[n1].boutsLost)*100 + (fs[n1].touchesWon - fs[n1].touchesLost)
             const f2score = (fs[n2].boutsWon - fs[n2].boutsLost)*10000 + (fs[n2].boutsWon + fs[n2].boutsLost)*100 + (fs[n2].touchesWon - fs[n2].touchesLost)
             // if ((fs[n1].boutsWon / (fs[n1].boutsLost + fs[n1].boutsWon)) < (fs[n2].boutsWon / (fs[n2].boutsLost + fs[n2].boutsWon))) { return 1 }
